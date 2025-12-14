@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Registration Form</title>
+  <style>
+    body { background:#CCD1D1; font-family: Arial, Helvetica, sans-serif; }
+    h1 { color:#424949; }
+    label { display:inline-block; width:130px; margin:6px 0; }
+    input[type="text"], input[type="password"] { width:200px; padding:4px; }
+    .btn { background:black; color:white; padding:6px 12px; border:0; cursor:pointer; }
+    .btn + .btn { margin-left:8px; }
+    #msg { margin-top:10px; color:#922B21; font-weight:bold; }
+    .box { max-width:420px; padding:16px; }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <h1>Registration Form</h1>
+
+    <form id="regForm" onsubmit="return validateForm();" onreset="resetMsg();">
+      <div>
+        <label for="username">User Name:</label>
+        <input id="username" type="text" />
+      </div>
+
+      <div>
+        <label for="password">Password:</label>
+        <input id="password" type="password" />
+      </div>
+
+      <div>
+        <label for="password2">Password again:</label>
+        <input id="password2" type="password" />
+      </div>
+
+      <div>
+        <label for="name">Name:</label>
+        <input id="name" type="text" />
+      </div>
+
+      <div>
+        <label>Gender:</label>
+        <input type="radio" name="gender" id="male" value="Male" />
+        <label for="male" style="width:auto;">Male</label>
+
+        <input type="radio" name="gender" id="female" value="Female" />
+        <label for="female" style="width:auto;">Female</label>
+      </div>
+
+      <div style="margin-top:10px;">
+        <button class="btn" type="submit">Submit</button>
+        <button class="btn" type="reset">Reset</button>
+      </div>
+
+      <p id="msg"></p>
+    </form>
+  </div>
+
+  <script>
+    function showError(text) {
+      // İstersen alert da yapabilirsin; ben p ile gösteriyorum:
+      document.getElementById("msg").innerHTML = text;
+      // alert(text);
+    }
+
+    function resetMsg() {
+      document.getElementById("msg").innerHTML = "";
+    }
+
+    function countDigits(s) {
+      var c = 0;
+      for (var i = 0; i < s.length; i++) {
+        if (s[i] >= "0" && s[i] <= "9") c++;
+      }
+      return c;
+    }
+
+    function validateForm() {
+      resetMsg();
+
+      var username = document.getElementById("username").value.trim();
+      var password = document.getElementById("password").value;
+      var password2 = document.getElementById("password2").value;
+      var name = document.getElementById("name").value.trim();
+
+      // username
+      if (username === "") { showError("User name must be entered."); return false; }
+
+      // password rules
+      if (password === "") { showError("Password must be entered."); return false; }
+      if (password.length < 5) { showError("Password length must be at least 5."); return false; }
+      if (countDigits(password) < 2) { showError("Password must include at least two digits."); return false; }
+
+      // password again
+      if (password2 === "") { showError("Password must be re-entered."); return false; }
+      if (password !== password2) { showError("Passwords do not match."); return false; }
+
+      // name
+      if (name === "") { showError("Name must be entered."); return false; }
+
+      // gender radio
+      var male = document.getElementById("male").checked;
+      var female = document.getElementById("female").checked;
+      if (!male && !female) { showError("Please select a gender."); return false; }
+
+      document.getElementById("msg").innerHTML = "Form is valid ✅";
+      return true;
+    }
+  </script>
+</body>
+</html>

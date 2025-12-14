@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Search for Courses</title>
+</head>
+<body>
+  <h2>Search for Courses</h2>
+
+  <label>Keyword: </label>
+  <input id="kw" type="text" onkeydown="searchCourses()" value="Programming" />
+
+  <div id="list" style="margin-top:12px;"></div>
+
+  <script>
+    var courses = [
+      { coursecode: 'CNG140', coursename: 'C Programming', coursecredit: 4 },
+      { coursecode: 'CNG242', coursename: 'Programming Language Concepts', coursecredit: 4 },
+      { coursecode: 'CNG445', coursename: 'Software Development with Scripting Languages', coursecredit: 2 },
+    ];
+
+    function searchCourses() {
+      // onkeydown event'inde input value henüz güncellenmemiş olabilir
+      // bu yüzden küçük bir gecikme ile okuyoruz:
+      setTimeout(function () {
+        var keyword = document.getElementById("kw").value.toLowerCase();
+        var out = "";
+
+        for (var i = 0; i < courses.length; i++) {
+          var name = courses[i].coursename.toLowerCase();
+          if (name.indexOf(keyword) !== -1) {
+            out += "<p>" + courses[i].coursecode + " " + courses[i].coursename + "</p>";
+          }
+        }
+
+        document.getElementById("list").innerHTML = out;
+      }, 0);
+    }
+
+    // sayfa açılınca da çalışsın
+    searchCourses();
+  </script>
+</body>
+</html>
