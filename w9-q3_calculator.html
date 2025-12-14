@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Simple Calculator</title>
+</head>
+<body>
+  <h2>Simple Calculator</h2>
+
+  <p>
+    1st Number:
+    <input id="n1" type="text" value="12" />
+  </p>
+  <p>
+    2nd Number:
+    <input id="n2" type="text" value="10" />
+  </p>
+
+  <button onclick="multiply()">Multiply</button>
+  <button onclick="divide()">Divide</button>
+
+  <p id="resultText">The result is </p>
+
+  <script>
+    function getNums() {
+      var a = parseInt(document.getElementById("n1").value);
+      var b = parseInt(document.getElementById("n2").value);
+      return {a:a, b:b};
+    }
+
+    function multiply() {
+      var x = getNums();
+      document.getElementById("resultText").innerHTML = "The result is " + (x.a * x.b);
+    }
+
+    function divide() {
+      var x = getNums();
+      if (x.b === 0) {
+        document.getElementById("resultText").innerHTML = "The result is ERROR (division by zero)";
+        return;
+      }
+      document.getElementById("resultText").innerHTML = "The result is " + (x.a / x.b);
+    }
+  </script>
+</body>
+</html>
